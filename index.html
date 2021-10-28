@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online Store</title>
+    <link rel="stylesheet" href="./styles.css">
+ </head>
+ <body>
+   
+ <div class="container">
+  <header> 
+    <h1 id="header_text">YungScript Online Store</h1> 
+    <div class="search_and_add" id="search_and_add">
+      <div class="search_and_new">
+        <input type="search" id="search_item" oninput="searchItem()" placeholder="Search Product by Name...">
+        <button id="add_new_product">Add Product</button>
+      </div>
+      <div id="search_err_msg"></div>
+    </div>
+  </header>
+
+  <!-- Products will added from the local storage -->
+  <main id="product_container"> </main>
+  
+  <!-- User Output Section -->
+  <div id="user_output">
+    <ul id="user_output_table">
+      <li>
+        <span>ITEM NAME</span>
+        <span>ITEM PRICE ($)</span>
+        <span>TOTAL NO. OF ITEM</span>
+        <span>TOTAL ITEM PRICE ($)</span>
+        <span></span>
+      </li> 
+    </ul>
+    <div id="total_div">
+      <span>Total ===>>> </span>
+      <input type="text" id="total_price" readonly>
+    </div>
+
+    <button id="continue_purchase">Continue Purchase</button>
+  </div>
+  
+  <!-- User Final Purchase Statistics -->
+  <div class="animate" id="purchase_stat">
+   <h2> Purchase Stat. </h2>
+   <div class="table_cont">
+    <table>
+      <thead>
+        <tr>
+         <th class="name">Item Name</th>
+         <th class="name">Item Price</th>
+         <th class="name">Amount Purchased</th>
+         <th class="name">Total Per Item</th>
+       </tr>
+      </thead>
+      <tbody id="table_body"></tbody>
+    </table>
+   </div>
+   <div class="btn_class">
+     <span class="cancel" id="cancel_purchase">Cancel</span>
+     <span class="final_purchase" id="confirm_purchase">Confirm Purchase</span>
+   </div>
+  </div> 
+ </div>
+  
+  <!-- Admin login, Producer login and Sign Up Forms -->
+  <form class="login" id="login_form">
+    <header>
+      <h3>Account Login</h3>
+    </header>
+    <div id="login_err_msg" class="all_form_err_msg"></div>
+    <input type="text" id="login_user_name" placeholder="Enter Username...">
+    <input type="password" id="login_user_password" placeholder="Enter Password...">
+    <input type="submit" class="all_form_btn" id="login_btn" value="Login">
+    <span class="quest">Don't have an Account? <a id="sign_up_link" title="Create a new Producer Account">Sign Up?</a></span>
+  </form>
+  <form class="login" id="sign_up_form">
+    <header>
+      <h3>Sign Up</h3>
+    </header> 
+    <div id="sign_up_err_msg" class="all_form_err_msg"></div>
+    <input type="text" id="sign_up_user_name" placeholder="Enter Username...">
+    <input type="password" id="sign_up_user_password" placeholder="Enter Password...">
+    <input type="password" id="sign_up_user_confirm_password" placeholder="Confirm Password...">
+    <input type="number" id="sign_up_user_number" placeholder="Enter Phone Number...">
+    <input type="email" id="sign_up_user_email" placeholder="Enter Email Address...">
+    <input type="submit" class="all_form_btn" id="sign_up_btn" value="Sign Up">
+    <span class="quest">Already have an Account? <a id="login_link" title="Click to Login if you have a Producer Account"> Login </a></span> 
+  </form>
+  <form class="login" id="admin_login_form">
+    <header>
+      <h3>Admin Login</h3>
+    </header>
+    <div id="admin_err_msg" class="all_form_err_msg"></div>
+    <input type="text" id="admin_user_name" placeholder="Enter Username...">
+    <input type="password" id="admin_password" placeholder="Enter Password...">
+    <input type="button" class="all_form_btn" id="admin_login_btn" value="Login">
+  </form>
+
+
+
+  <!-- Adding New Product Form -->
+  <form class="new_product_form" id="new_product_form">
+    <header>
+      <h1>Fill the Form Below</h1>
+    </header> 
+    <fieldset id="new_product_id"> 
+      <legend> Product Imformation</legend>
+      <!-- Create a DIV to display all error messages in the pruduct info section -->
+      <div class="new_product_err" id="new_product_err_msg"></div> 
+      <div> 
+        <label>Product Name:</label>
+        <input type="text" id="new_product_name" placeholder="Product Name...">
+      </div> 
+      <div> 
+        <label>Product Description:</label>
+        <textarea id="new_product_description" placeholder="Describe Your Product..."></textarea>
+      </div> 
+      <div>
+        <label>Production Date:</label>
+        <input type="date" id="new_product_production_date">
+      </div>
+      <div>
+        <label>Expiry Date:</label>
+        <input type="date" id="new_product_expiry_date">
+      </div>
+      <div>
+        <label>Product Price:</label>
+        <input type="number" id="new_product_price" placeholder="Product Price...">
+      </div>
+      <div>
+        <label>Amount of Product Available:</label>
+        <input type="number" id="new_product_total_available" placeholder="Amount of Product Available...">
+      </div>
+    </fieldset>
+    <fieldset id="new_producer_id">
+      <legend>Producer Information</legend>
+      <!-- Create a DIV to display all error messages in the pruducer info section -->
+      <div class="new_product_err" id="new_producer_err_msg"></div>
+      <div>
+        <label>Name:</label>
+        <input type="text" id="new_producer_name" placeholder="Enter Name...">
+      </div>
+      <div> 
+        <label>Phone Number:</label>
+        <input type="number" id="new_producer_phone_number" placeholder="e.g 0905*****75">
+      </div>
+      <div>
+        <label>Email:</label>
+        <input type="email" id="new_producer_email" placeholder="Enter Email...">
+      </div>
+      <div>
+        <label>Address:</label>
+        <textarea id="new_producer_address" placeholder="Enter Address..."></textarea>
+      </div>
+      <div>
+        <label>Website Address:</label>
+        <input type="text" id="new_producer_website_address" placeholder="e.g citonhub.com">
+      </div>
+      <div>
+        <label>Website Title:</label>
+        <input type="text" id="new_producer_website_title" placeholder="e.g CitonHub">
+      </div>
+    </fieldset>
+
+    <input type="submit" class="submit_new_product_btn" id="submit_new_product_btn" value="Add New Product">
+  </form>
+
+
+  <!-- All Producer Credentials and a button to display it-->
+  <div id="admin_btn_div">
+    <button id="admin_login" title="Login to an Admin Account"> Admin Login </button>
+    <button id="home_page" title="Goto Home Page">  Home </button>
+  </div>
+  <div id="all_producer_accn_credentials">
+    <h4 id="all_producer_heading">All Producers Credentials</h4>
+    <button id="clear_localstorage"> Clear LocalStorage </button>
+  </div>
+
+
+  
+  
+  
+  <script src="script.js"></script>
+
+ </body>
+</html>
